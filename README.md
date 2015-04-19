@@ -39,6 +39,8 @@ Long Description:
 Changes will not be submitted. Firefox will stay open and you as a user can submit changes after review.
 If you believe in the script, you can pass argument `--submit` for also submitting changes imediately.
 
+If you set `--border "False"`, the text will be replaced completely.
+
 ## Requirements
 Only `selenium (2.45.0)`, Python 3+ (`Python 3.4.3` tested), Firefox (version `37.0.1` tested)
 

@@ -102,7 +102,17 @@ class Cache():
     code = ""
     url = ""
 
-    verb( '\n\n--------\n' )
+    def click( self, xpath ):
+        dr.find_element_by_xpath( xpath ).click()
+
+    def sign_out( self ):
+        # sign out
+        self.click( '//*[@id="ctl00_divSignedIn"]/ul/li[1]/button' )
+        self.click( '//*[@id="ctl00_hlSignOut"]' )
+
+        from time import sleep
+        sleep( 1 )
+
 
     def __init__( self, code ):
         self.code = code
@@ -122,7 +132,7 @@ class Cache():
 
                 try:
                     # sign in form
-                    dr.find_element_by_xpath( '//*[@id="hlSignIn"]' ).click()
+                    self.click( '//*[@id="hlSignIn"]' )
 
                     lgn = dr.find_element_by_xpath( '//*[@id="ctl00_tbUsername"]' )
                     lgn.send_keys( login_name )
@@ -131,16 +141,17 @@ class Cache():
                     psw.send_keys( password )
 
                     # check box remember me (maybe not necessary)
-                    dr.find_element_by_xpath( '//*[@id="ctl00_cbRememberMe"]' ).click()
+                    self.click( '//*[@id="ctl00_cbRememberMe"]' )
 
                     # submit login form
-                    dr.find_element_by_xpath( '//*[@id="ctl00_btnSignIn"]' ).click()
+                    self.click( '//*[@id="ctl00_btnSignIn"]' )
+
                 except NoSuchElementException:
                     verb( "You are already login" )
 
                 try:
                     # click on edit link
-                    dr.find_element_by_xpath( '//*[@id="ctl00_ContentBody_GeoNav_adminTools"]/li[2]/a' ).click()
+                    self.click( '//*[@id="ctl00_ContentBody_GeoNav_adminTools"]/li[2]/a' )
 
                     # inser to text area of long description
                     textarea = dr.find_element_by_xpath( '//*[@id="tbLongDesc"]' )
@@ -159,12 +170,15 @@ class Cache():
                         textarea.clear()  # clear textarea
                         newtext = dont_change + content + dont_change2
                         textarea.send_keys( newtext )  # insert unchanged text + content
+
                         verb( '------NEW TEXT----' )
                         verb( newtext )
                         verb( '------END OF NEW TEXT-----\n' )
                     elif args.border == "False":
+
                         textarea.clear()  # clear textarea
                         textarea.send_keys( content )
+
                         verb( '------NEW TEXT----' )
                         verb( content )
                         verb( '------END OF NEW TEXT-----\n' )
@@ -172,23 +186,21 @@ class Cache():
 
 
                     # check boxes about understand and disclaimer
-                    dr.find_element_by_xpath( '//*[@id="ctl00_ContentBody_chkUnderstand"]' ).click()
-                    dr.find_element_by_xpath( '//*[@id="ctl00_ContentBody_chkDisclaimer"]' ).click()
+                    self.click( '//*[@id="ctl00_ContentBody_chkUnderstand"]' )
+                    self.click( '//*[@id="ctl00_ContentBody_chkDisclaimer"]' )
 
                     if args.submit:
                         # submit edit
-                        dr.find_element_by_xpath( '//*[@id="ctl00_ContentBody_btnSubmit"]' ).click()
+                        self.click( '//*[@id="ctl00_ContentBody_btnSubmit"]' )
 
+
+                    self.sign_out()
                     trying = False
                 except NoSuchElementException:
                     verb( "You have no rights to edit this geocache!" )
 
-                    # sign out
-                    dr.find_element_by_xpath( '//*[@id="ctl00_divSignedIn"]/ul/li[1]/button' ).click()
-                    dr.find_element_by_xpath( '//*[@id="ctl00_hlSignOut"]' ).click()
-                    from time import sleep
-                    sleep( 2 )
-                    # dr.get( self.url )
+                    self.sign_out()
+                    dr.get( self.url )
 
         body = dr.find_element_by_tag_name( "body" )
         body.send_keys( Keys.CONTROL + 't' )
