@@ -6,14 +6,14 @@ batch_process is a description
 
 It defines classes_and_methods
 
-@author:     user_name
+@author:     Daniel Hnyk
 
-@copyright:  2015 organization_name. All rights reserved.
+@copyright:  2015 Daniel Hnyk
 
-@license:    license
+@license:    BSD
 
-@contact:    user_email
-@deffield    updated: Updated
+@contact:    kotrfa@gmail.com
+@deffield    updated: 19.04.2015
 '''
 
 import sys
@@ -50,7 +50,6 @@ Distributed on an "AS IS" basis without warranties
 or conditions of any kind, either express or implied.
 
 USAGE
-!CURRENTLY MUST BE RUN ON FULLSCREEN!
 ''' % ( program_shortdesc, str( __date__ ) )
 
 # Setup argument parser
