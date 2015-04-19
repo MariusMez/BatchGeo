@@ -138,17 +138,26 @@ class Cache():
                     verb( text )
                     verb( '------END OF OLD TEXT-----\n' )
 
-                    start_pos = text.find( args.border )
-                    dont_change = text[:start_pos + len( args.border )] + "\n"
-                    start_pos2 = text[start_pos + 1:].find( args.border )
-                    dont_change2 = "\n" + text[start_pos2:]
+                    if args.border:  # if something is set
+                        start_pos = text.find( args.border )
+                        dont_change = text[:start_pos + len( args.border )] + "\n"
+                        start_pos2 = text[start_pos + 1:].find( args.border )
+                        dont_change2 = "\n" + text[start_pos2:]
 
-                    textarea.clear()  # clear textarea
-                    newtext = dont_change + content + dont_change2
-                    textarea.send_keys( newtext )  # insert unchanged text + content
-                    verb( '------NEW TEXT----' )
-                    verb( newtext )
-                    verb( '------END OF NEW TEXT-----\n' )
+                        textarea.clear()  # clear textarea
+                        newtext = dont_change + content + dont_change2
+                        textarea.send_keys( newtext )  # insert unchanged text + content
+                        verb( '------NEW TEXT----' )
+                        verb( newtext )
+                        verb( '------END OF NEW TEXT-----\n' )
+                    elif args.border == "False":
+                        textarea.clear()  # clear textarea
+                        textarea.send_keys( content )
+                        verb( '------NEW TEXT----' )
+                        verb( content )
+                        verb( '------END OF NEW TEXT-----\n' )
+
+
 
                     # check boxes about understand and disclaimer
                     dr.find_element_by_xpath( '//*[@id="ctl00_ContentBody_chkUnderstand"]' ).click()
