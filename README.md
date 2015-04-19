@@ -44,4 +44,5 @@ Only `selenium (2.45.0)`, Python 3+ (`Python 3.4.3` tested), Firefox (version `3
 
 ## Known issues
 * you must use Firefox on fullscreen
-
+* sometimes firefox throws some weird errors when inserting text into area code. It was because
+of formatting of input html file. After using http://www.dirtymarkup.com/ it works.

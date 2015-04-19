@@ -15,6 +15,12 @@ It defines classes_and_methods
 @contact:    kotrfa@gmail.com
 @deffield    updated: 19.04.2015
 '''
+from random import choice
+'''
+TODO
+-----
+* border execeptions - if there are really twice...
+'''
 
 import sys
 import os
@@ -55,14 +61,15 @@ USAGE
 # Setup argument parser
 parser = ArgumentParser( description = program_license, formatter_class = RawDescriptionHelpFormatter )
 parser.add_argument( "-v", "--verbose", dest = "verbose", action = "store_true", help = "Verbose mode." )
-parser.add_argument( "-f", "--file", default = "input.html", help = "Input file formated in HTML which should be pasted into Long Description" )
+parser.add_argument( "-d", "--driver", choices = ["firefox", "phantomjs"], default = "firefox", help = "Which driver should be used (default: %(default)s)" )
+parser.add_argument( "-f", "--file", default = "input.html", help = "Input file formated in HTML which should be pasted into Long Description (default: %(default)s)" )
 parser.add_argument( "-c", "--codes", required = True, type = str, help = "Codes of geacaches separated by comma. E.g. 'GC3YJME,GC3YJMX'" )
 parser.add_argument( '-V', '--version', action = 'version', version = program_version_message )
-parser.add_argument( "-m", "--maternal_url", default = "http://www.geocaching.com/geocache/", type = str, help = "Maternal URL of geocaches" )
+parser.add_argument( "-m", "--maternal_url", default = "http://www.geocaching.com/geocache/", type = str, help = "Maternal URL of geocaches (default: %(default)s)" )
 parser.add_argument( "-l", "--logins", required = True, help = "Login names and passwords in 'user1:passwd1,user2:passwd2'" )
 parser.add_argument( '-s', "--submit", action = 'store_true', help = "If changes should be submited." )
-parser.add_argument( '-b', "--border", default = "<!--DONTCHANGE-->", help = "Every long description must contain this string exactly TWICE. Everything between these two occurences will be replaced." )
-parser.add_argument( '--log', default = "out.log", help = "Name of log file." )
+parser.add_argument( '-b', "--border", default = "<!--DONTCHANGE-->", help = "Every long description must contain this string exactly TWICE. Everything between these two occurences will be replaced. (default: %(default)s)" )
+parser.add_argument( '--log', default = "out.log", help = "Name of log file. (default: %(default)s)" )
 
 # Process arguments
 args = parser.parse_args()
@@ -75,7 +82,9 @@ with open( args.file, "r", encoding = "utf8" ) as ifile:
     content = ifile.read()
 # print( content )
 
-dr = webdriver.Firefox()
+# dr = webdriver.Firefox()
+dr = webdriver.PhantomJS()
+dr.set_window_size( 1400, 1000 )
 
 def verb( st ):
     if args.verbose:
