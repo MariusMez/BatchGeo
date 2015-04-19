@@ -82,8 +82,12 @@ with open( args.file, "r", encoding = "utf8" ) as ifile:
     content = ifile.read()
 # print( content )
 
-# dr = webdriver.Firefox()
-dr = webdriver.PhantomJS()
+dr = ""
+if args.driver == "firefox":
+    dr = webdriver.Firefox()
+elif args.driver == "phantomjs":
+    dr = webdriver.PhantomJS()
+
 dr.set_window_size( 1400, 1000 )
 
 def verb( st ):
