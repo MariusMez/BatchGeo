@@ -15,7 +15,7 @@ It defines classes_and_methods
 @contact:    kotrfa@gmail.com
 @deffield    updated: 19.04.2015
 '''
-from random import choice
+
 '''
 TODO
 -----
@@ -211,4 +211,4 @@ if __name__ == "__main__":
     for code in codes:
         Cache( code )
 
-    sys.exit()
+    sys.exit( 0 )
