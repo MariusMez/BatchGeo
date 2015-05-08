@@ -1,11 +1,5 @@
 # encoding: utf-8
 '''
-batch_process -- shortdesc
-
-batch_process is a description
-
-It defines classes_and_methods
-
 @author:     Daniel Hnyk
 
 @copyright:  2015 Daniel Hnyk
@@ -47,10 +41,9 @@ program_shortdesc = __import__( '__main__' ).__doc__.split( "\n" )[1]
 program_license = '''%s
 
 Created by Daniel Hnyk on %s.
-Copyright 2015 organization_name. All rights reserved.
+Copyright 2015 Daniel Hnyk. All rights reserved.
 
-Licensed under the Apache License 2.0
-http://www.apache.org/licenses/LICENSE-2.0
+Licensed under the BSD.
 
 Distributed on an "AS IS" basis without warranties
 or conditions of any kind, either express or implied.
