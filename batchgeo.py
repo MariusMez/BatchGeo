@@ -29,9 +29,9 @@ from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 
 __all__ = []
-__version__ = 0.1
+__version__ = 0.2
 __date__ = '2015-04-18'
-__updated__ = '2015-04-18'
+__updated__ = '2017-08-14'
 
 program_name = os.path.basename( sys.argv[0] )
 program_version = "v%s" % __version__
@@ -127,24 +127,32 @@ class Cache():
                     # sign in form
                     self.click( '//*[@id="hlSignIn"]' )
 
-                    lgn = dr.find_element_by_xpath( '//*[@id="ctl00_tbUsername"]' )
+                    lgn = dr.find_element_by_xpath( '//*[@id="Username"]' )
+
                     lgn.send_keys( login_name )
 
-                    psw = dr.find_element_by_xpath( '//*[@id="ctl00_tbPassword"]' )
+                    psw = dr.find_element_by_xpath( '//*[@id="Password"]' )
                     psw.send_keys( password )
 
                     # check box remember me (maybe not necessary)
-                    self.click( '//*[@id="ctl00_cbRememberMe"]' )
+                    #self.click( '//*[@id="ctl00_cbRememberMe"]' )
 
                     # submit login form
-                    self.click( '//*[@id="ctl00_btnSignIn"]' )
+                    self.click( '//*[@id="Login"]' )
 
                 except NoSuchElementException:
                     verb( "You are already login" )
 
                 try:
                     # click on edit link
-                    self.click( '//*[@id="ctl00_ContentBody_GeoNav_adminTools"]/li[2]/a' )
+                    #self.click( '//*[@id="ctl00_ContentBody_GeoNav_adminTools"]/li[2]/a' )
+                    #self.find_element_by_link_text("View / Edit Log / Images")
+                    link = dr.find_element_by_xpath( '//a[contains(text(),"View / Edit Log / Images")]' )
+                    href = link.get_attribute( "href" )
+                    dr.get(href)
+
+                    self.click( '//*[@id="ctl00_ContentBody_LogBookPanel1_lnkBtnEdit"]' )
+
 
                     # inser to text area of long description
                     textarea = dr.find_element_by_xpath( '//*[@id="tbLongDesc"]' )
