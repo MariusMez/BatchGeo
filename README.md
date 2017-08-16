@@ -42,7 +42,9 @@ If you believe in the script, you can pass argument `--submit` for also submitti
 If you set `--border "False"`, the text will be replaced completely.
 
 ## Requirements
-Only `selenium (2.45.0)`, Python 3+ (`Python 3.4.3` tested), Firefox (version `37.0.1` tested)
+
+Only `selenium (3.5.0)`, Python 3+ (`Python 3.6.*` tested), Firefox (version `54.0.1` tested)
+Please read : http://selenium-python.readthedocs.io/installation.html to install the latest Selenium version and appropriate driver.
 
 ## Known issues
 * you must use Firefox on fullscreen

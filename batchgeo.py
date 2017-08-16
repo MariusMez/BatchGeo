@@ -23,8 +23,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 
-
-
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 
@@ -155,7 +153,7 @@ class Cache():
 
 
                     # inser to text area of long description
-                    textarea = dr.find_element_by_xpath( '//*[@id="tbLongDesc"]' )
+                    textarea = dr.find_element_by_xpath( '//*[@id="ctl00_ContentBody_LogBookPanel1_uxLogInfo"]' )
                     text = textarea.get_attribute( "value" )
 
                     verb( '------OLD TEXT----' )
@@ -187,12 +185,12 @@ class Cache():
 
 
                     # check boxes about understand and disclaimer
-                    self.click( '//*[@id="ctl00_ContentBody_chkUnderstand"]' )
-                    self.click( '//*[@id="ctl00_ContentBody_chkDisclaimer"]' )
+                    #self.click( '//*[@id="ctl00_ContentBody_chkUnderstand"]' )
+                    #self.click( '//*[@id="ctl00_ContentBody_chkDisclaimer"]' )
 
                     if args.submit:
                         # submit edit
-                        self.click( '//*[@id="ctl00_ContentBody_btnSubmit"]' )
+                        self.click( '//*[@id="ctl00_ContentBody_LogBookPanel1_btnSubmitLog"]' )
 
 
                     self.sign_out()
