@@ -98,8 +98,11 @@ class Cache():
 
     def sign_out( self ):
         # sign out
-        self.click( '//*[@id="ctl00_divSignedIn"]/ul/li[1]/button' )
-        self.click( '//*[@id="ctl00_hlSignOut"]' )
+        self.click( "//*[contains(@class, 'li-user-toggle')]" )
+        self.click( "//*[contains(@class, 'sign-out')]" )
+        #body = dr.find_element_by_tag_name( "body" )
+        #body.send_keys( Keys.ALT + Keys.SHIFT + 's' )
+        #self.click( '//*[@id="ctl00_hlSignOut"]' )
 
         from time import sleep
         sleep( 1 )
@@ -126,7 +129,6 @@ class Cache():
                     self.click( '//*[@id="hlSignIn"]' )
 
                     lgn = dr.find_element_by_xpath( '//*[@id="Username"]' )
-
                     lgn.send_keys( login_name )
 
                     psw = dr.find_element_by_xpath( '//*[@id="Password"]' )
