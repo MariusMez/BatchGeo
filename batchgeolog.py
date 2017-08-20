@@ -61,6 +61,7 @@ parser.add_argument( '-V', '--version', action = 'version', version = program_ve
 parser.add_argument( "-m", "--maternal_url", default = "http://www.geocaching.com/geocache/", type = str, help = "Maternal URL of geocaches (default: %(default)s)" )
 parser.add_argument( "-l", "--logins", required = True, help = "Login names and passwords in 'user1:passwd1,user2:passwd2'" )
 parser.add_argument( '-s', "--submit", action = 'store_true', help = "If changes should be submited." )
+parser.add_argument( '-t', "--date", type = str, required = True, help = "Set LogDate. E.g. '2017-12-28'" )
 parser.add_argument( '-b', "--border", default = "<!--DONTCHANGE-->", help = "Every long description must contain this string exactly TWICE. Everything between these two occurences will be replaced. (default: %(default)s)" )
 parser.add_argument( '--log', default = "out.log", help = "Name of log file. (default: %(default)s)" )
 
@@ -69,6 +70,7 @@ args = parser.parse_args()
 
 codes = args.codes.split( "," )
 users = args.logins.split( "," )
+logdate = args.date
 
 content = ""
 with open( args.file, "r", encoding = "utf8" ) as ifile:
@@ -146,56 +148,24 @@ class Cache():
 
                 try:
                     # click on edit link
-                    #self.click( '//*[@id="ctl00_ContentBody_GeoNav_adminTools"]/li[2]/a' )
-                    #self.find_element_by_link_text("View / Edit Log / Images")
-                    link = dr.find_element_by_xpath( '//a[contains(text(),"View / Edit Log / Images")]' )
-                    href = link.get_attribute( "href" )
-                    dr.get(href)
+                    self.click( '//*[@id="ctl00_ContentBody_GeoNav_logButton"]' )
 
-                    self.click( '//*[@id="ctl00_ContentBody_LogBookPanel1_lnkBtnEdit"]' )
-
+                    # select log date
+                    dr.execute_script("document.getElementById('LogDate').value='" + logdate + "'")
+                    sleep( 1 )
 
                     # inser to text area of long description
-                    textarea = dr.find_element_by_xpath( '//*[@id="ctl00_ContentBody_LogBookPanel1_uxLogInfo"]' )
+                    textarea = dr.find_element_by_xpath( '//*[@id="LogText"]' )
                     text = textarea.get_attribute( "value" )
 
-                    #verb( '------OLD TEXT----' )
-                    #verb( text )
-                    #verb( '------END OF OLD TEXT-----\n' )
-
-                    if not args.border:  # if something is set
-                        
-                        ftf = text.find( 'FTF' )
-                        stf = text.find( 'STF' )
-                        prefix = ''
-
-                        if ftf > 0: 
-                            prefix = '(FTF)'
-                        if stf > 0:
-                            prefix = '(STF)'
-
-                        start_pos = text.find( args.border )
-                        if start_pos > 0:
-                            dont_change = '\n' + text[start_pos:]
-                        else:
-                            dont_change = '\n'+r'=^.^= Ƹ̵̡Ӝ̵̨̄Ʒ' + '\n\n' + r'*´¨)' + '\n' + r'¸.•´¸.•*´¨) ¸.•*¨)' + '\n' + r'(¸.•´ (¸.•` ¤ Mayus & María ¤'
-                        
-                        textarea.clear()  # clear textarea
-
-                        verb( '------OLD TEXT SAVED----' )
-                        verb( dont_change )
-                        verb( '------OLD TEXT SAVED-----\n' )
-
-
-                        verb( '------NEW TEXT----' )
-                        verb( prefix + '\n' + content + '\n' + dont_change )
-                        verb( '------END OF NEW TEXT-----\n' )
-
-                        textarea.send_keys( prefix + '\n' + content + '\n' + dont_change)
+                    verb( 'LogDate' )
+                    verb( logdate )
+                    textarea.send_keys( content )
+                    verb( content )
 
                     if args.submit:
                         # submit edit
-                        self.click( '//*[@id="ctl00_ContentBody_LogBookPanel1_btnSubmitLog"]' )
+                        dr.find_element_by_xpath( '//span[contains(text(),"Post")]' ).click()
                         sleep( 1 )
 
 
