@@ -152,7 +152,7 @@ class Cache():
 
                     # select log date
                     dr.execute_script("document.getElementById('LogDate').value='" + logdate + "'")
-                    sleep( 1 )
+                    sleep( 0.5 )
 
                     # inser to text area of long description
                     textarea = dr.find_element_by_xpath( '//*[@id="LogText"]' )
@@ -166,8 +166,6 @@ class Cache():
                     if args.submit:
                         # submit edit
                         dr.find_element_by_xpath( '//span[contains(text(),"Post")]' ).click()
-                        sleep( 1 )
-
 
                     #self.sign_out()
                     trying = False
@@ -177,13 +175,14 @@ class Cache():
                     self.sign_out()
                     dr.get( self.url )
 
-        body = dr.find_element_by_tag_name( "body" )
-        body.send_keys( Keys.CONTROL + 't' )
+        #sleep( 1.5 )
+        #body = dr.find_element_by_tag_name("body")
+        #body.send_keys( Keys.CONTROL + 't' )
 
 
 if __name__ == "__main__":
 
     for code in codes:
-        Cache( code )
+        Cache(code)
 
     sys.exit( 0 )
