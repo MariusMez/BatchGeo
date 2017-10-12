@@ -166,13 +166,14 @@ class Cache():
                     if args.submit:
                         # submit edit
                         dr.find_element_by_xpath( '//span[contains(text(),"Post")]' ).click()
+                        sleep( 0.5 )
 
                     #self.sign_out()
                     trying = False
                 except NoSuchElementException:
                     verb( "You have no rights to edit this geocache!" )
 
-                    self.sign_out()
+                    #self.sign_out()
                     dr.get( self.url )
 
         #sleep( 1.5 )

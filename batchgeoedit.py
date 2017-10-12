@@ -13,7 +13,7 @@
 '''
 TODO
 -----
-* border execeptions - if there are really twice...
+* border exceptions - if there are really twice...
 '''
 
 import sys
