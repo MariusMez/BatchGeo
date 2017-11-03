@@ -1,11 +1,8 @@
 # encoding: utf-8
 '''
 @author:     Daniel Hnyk
-
 @copyright:  2015 Daniel Hnyk
-
 @license:    BSD
-
 @contact:    kotrfa@gmail.com
 @deffield    updated: 19.04.2015
 '''
@@ -56,7 +53,7 @@ parser = ArgumentParser( description = program_license, formatter_class = RawDes
 parser.add_argument( "-v", "--verbose", dest = "verbose", action = "store_true", help = "Verbose mode." )
 parser.add_argument( "-d", "--driver", choices = ["firefox", "phantomjs"], default = "firefox", help = "Which driver should be used (default: %(default)s)" )
 parser.add_argument( "-f", "--file", default = "input.html", help = "Input file formated in HTML which should be pasted into Long Description (default: %(default)s)" )
-parser.add_argument( "-c", "--codes", required = True, type = str, help = "Codes of geacaches separated by comma. E.g. 'GC3YJME,GC3YJMX'" )
+parser.add_argument( "-c", "--codes", required = True, type = str, help = "Codes of geocaches separated by comma. E.g. 'GC3YJME,GC3YJMX'" )
 parser.add_argument( '-V', '--version', action = 'version', version = program_version_message )
 parser.add_argument( "-m", "--maternal_url", default = "http://www.geocaching.com/geocache/", type = str, help = "Maternal URL of geocaches (default: %(default)s)" )
 parser.add_argument( "-l", "--logins", required = True, help = "Login names and passwords in 'user1:passwd1,user2:passwd2'" )

@@ -84,6 +84,7 @@ elif args.driver == "phantomjs":
     dr = webdriver.PhantomJS()
 
 dr.set_window_size( 1400, 1000 )
+dr.implicitly_wait(10)
 
 def verb( st ):
     if args.verbose:
@@ -108,13 +109,9 @@ class Cache():
         #body.send_keys( Keys.ALT + Keys.SHIFT + 's' )
         #self.click( '//*[@id="ctl00_hlSignOut"]' )
 
-        sleep( 1 )
-
-
     def __init__( self, code ):
         self.code = code
         self.url = args.maternal_url + code
-
 
         verb( "Processing: " + self.code )
         trying = True
@@ -148,11 +145,11 @@ class Cache():
 
                 try:
                     # click on edit link
+                    
                     self.click( '//*[@id="ctl00_ContentBody_GeoNav_logButton"]' )
 
                     # select log date
                     dr.execute_script("document.getElementById('LogDate').value='" + logdate + "'")
-                    sleep( 0.5 )
 
                     # inser to text area of long description
                     textarea = dr.find_element_by_xpath( '//*[@id="LogText"]' )
@@ -165,18 +162,18 @@ class Cache():
 
                     if args.submit:
                         # submit edit
-                        dr.find_element_by_xpath( '//span[contains(text(),"Post")]' ).click()
-                        sleep( 0.5 )
+                        #submit_button = dr.find_element_by_xpath( '//span[contains(text(),"Post")]' )
+                        submit_button = dr.find_element_by_xpath('//*[@id="submitLog"]/div/button')
+                        submit_button.click()
 
                     #self.sign_out()
                     trying = False
-                except NoSuchElementException:
-                    verb( "You have no rights to edit this geocache!" )
+                except NoSuchElementException as ex:
+                    verb( "Exception : " + ex.msg )
 
                     #self.sign_out()
                     dr.get( self.url )
 
-        #sleep( 1.5 )
         #body = dr.find_element_by_tag_name("body")
         #body.send_keys( Keys.CONTROL + 't' )
 
